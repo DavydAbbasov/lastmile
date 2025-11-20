@@ -12,8 +12,8 @@ build/
 dist/
 coverage.out
 
-.env
-.env.*
+# .env
+# .env.*
 *.local
 *.secret
 *.key
