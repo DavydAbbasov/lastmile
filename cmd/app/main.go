@@ -24,10 +24,10 @@ func main() {
 	log.Info().
 		Msg("starting service")
 
-		// application, err := app.New(cfg, logger)
-		// if err != nil {
-		// 	logger.Fatal().Err(err).Msg("failed to build application")
-		// }
+	// application, err := app.New(cfg, logger)
+	// if err != nil {
+	// 	logger.Fatal().Err(err).Msg("failed to build application")
+	// }
 
 	//graceful shutdown
 	ctx, stop := signal.NotifyContext(

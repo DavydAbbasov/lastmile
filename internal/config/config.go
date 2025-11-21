@@ -3,6 +3,7 @@ package config
 import (
 	"fmt"
 	"os"
+	"strings"
 )
 
 type Config struct {
@@ -62,7 +63,7 @@ func Load() (Config, error) {
 
 	//Postgres
 	cfg.Postgres.Host = getEnv("POSTGRES_HOST")
-	cfg.Postgres.Port = getEnvOrDefault("POSTGRES_PORT", "5432")
+	cfg.Postgres.Port = getEnvOrDefault("POSTGRES_PORT", "5433")
 	cfg.Postgres.User = getEnv("POSTGRES_USER")
 	cfg.Postgres.Password = getEnv("POSTGRES_PASSWORD")
 	cfg.Postgres.DBName = getEnv("POSTGRES_DB")
@@ -99,7 +100,17 @@ func (p PostgresConfig) DSN() string {
 
 // building kafka
 func (k KafkaConfig) BrokersSlice() []string {
-	return nil
+	if k.Brokers == "" {
+		return []string{}
+	}
+	s := strings.Split(k.Brokers, ",")
+
+	// trim spaces
+	for i := range s {
+		s[i] = strings.TrimSpace(s[i])
+	}
+
+	return s
 }
 func (a AppConfig) IsProd() bool {
 	// to do
